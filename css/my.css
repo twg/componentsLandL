@@ -24,6 +24,7 @@
 
 .featuredPost-post{
   max-width: 900px;
+  min-height: 340px;
 }
 
 .featuredPost-category{
@@ -64,7 +65,7 @@
 /*React CSS Animation*/
 
 .fadeIn-appear {
-  opacity: 0.01;
+  opacity: 0;
 }
 
 .fadeIn-appear.fadeIn-appear-active {
