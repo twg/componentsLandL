@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>A Styleguide Fiddle Built With React</title>
+    <link rel="stylesheet" href="css/boilerplate.css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="css/my.css" media="screen" charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <!-- All the things get rendered here -->
+    </div>
+
+
+    <script type="text/babel">
+
+      // Colour Swatch
+      var Swatch = React.createClass({
+        logEvent: function (e) {
+          console.log('something happened:', e)
+        },
+        render: function() {
+          var colour = this.props.colour
+          var style = {}
+          return (
+            <sg-swatch style={{borderColor: colour}} onClick={this.logEvent}>
+              {colour.toLowerCase()}
+            </sg-swatch>
+          )
+        }
+      })
+
+      // Colour Swatches -> Nesting Components
+      var Swatches = React.createClass({
+        render: function() {
+          var colours = this.props.colours
+          return (
+            <sg-section>
+              <a href="#colours" className="sg-h1" id="colours">Colours</a>
+              {
+                colours.map(function(colour, i) {
+                  return (
+                    <Swatch colour={colour} key={i} />
+                  )
+                })
+              }
+            </sg-section>
+          )
+        }
+      }) 
+
+
+      // Our First Stylguide Component
+      var StyleguideNav = React.createClass({  
+        render: function() {
+          
+          var links = this.props.links
+
+          return (
+            <sg-nav>
+              <sg-logo>
+                <img src="http://www.revealnews.org/wp-content/uploads/2015/03/TWG-Logo-Revised-Large-11.png" alt="logo"></img>
+              </sg-logo>
+              <div>
+                {
+                  links.map(function(link, i) {
+                    return (
+                      <div key={i}>
+                        <a href={link.anchor}>{link.title}</a>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </sg-nav>
+          );
+        }
+      });
+
+      // React was built at Facebook
+      // Yet another JS architecture solution, but a good one.
+      // The basic benefits: declarative views. Easy to piece together whats happening, and will happen.
+      // 'Describe what your template looks like at any point in time'
+      // Reusable, self-contained, dumb components. all-in-one: style, markup & behaviour
+      // When something changes (user input, new data, etc), the two versions of the view (past and present) are compared,
+      // Differences are teased out and 'batched' together, and the DOM gets updated.
+      // Changes come from the top down -> looking for changes on the state.
+      // The state is all the information about what your application looks like RIGHT NOW. 
+      
+      // First Things First
+      var App = React.createClass({
+        render: function() {
+          var linksArray = [
+            {
+              anchor: '#colours',
+              title: 'Colours'
+            }, 
+            {
+              anchor: '#typography',
+              title: 'Typography'
+            }, 
+            {
+              anchor: '#components',
+              title: 'Components'
+            }
+          ]
+          var coloursArray = [
+            '#247BA0',
+            '#70C1B3',
+            '#B2DBBF',
+            '#F3FFBD',
+            '#FC1654',
+            '#CCCCCC'
+          ]
+          return (
+            <div className="sg-body">
+              <h1> Oh Hello </h1>
+
+              {/* Instatiate your react classes like so: */}
+              <StyleguideNav links={linksArray} />
+              <Swatches colours={coloursArray} />
+            </div>
+          ); 
+        }
+      });
+       
+      ReactDOM.render(<App />,document.getElementById('app'));
+
+    </script>
+  </body>
+</html>
