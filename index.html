@@ -17,7 +17,10 @@
     </div>
 
     <script type="text/babel">
-      
+
+      // Animating the featured post
+      var TransitionGroup = React.addons.CSSTransitionGroup;
+
       // Featured Post Component
       var FeaturedPost = React.createClass({
         render: function() {
@@ -28,16 +31,18 @@
             img: 'http://lorempixel.com/g/575/325'
           }
           return (
-            <div className='featuredPost-post grid'>
-              <div className="grid-1of2">
-                <h1 className="featuredPost-quote" dangerouslySetInnerHTML={{__html: post.quote}}></h1>
+            <TransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+              <div className='featuredPost-post grid'>
+                <div className="grid-1of2">
+                  <h1 className="featuredPost-quote" dangerouslySetInnerHTML={{__html: post.quote}}></h1>
+                </div>
+                <div className="grid-1of2 featuredPost-imgWrap">
+                  <img src={post.img} className="featuredPost-img"></img>
+                  <div className="featuredPost-title">{post.post_title}</div>
+                  <div className="featuredPost-category">{post.category}</div>
+                </div>
               </div>
-              <div className="grid-1of2 featuredPost-imgWrap">
-                <img src={post.img} className="featuredPost-img"></img>
-                <div className="featuredPost-title">{post.post_title}</div>
-                <div className="featuredPost-category">{post.category}</div>
-              </div>
-            </div>
+            </TransitionGroup>
           )
         }
       })

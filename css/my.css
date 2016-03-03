@@ -59,3 +59,15 @@
 .featuredPost-quote .underline{
   border-bottom: 8px solid black;
 }
+
+
+/*React CSS Animation*/
+
+.fadeIn-appear {
+  opacity: 0.01;
+}
+
+.fadeIn-appear.fadeIn-appear-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
