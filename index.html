@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/boilerplate.css" media="screen" charset="utf-8">
     <link rel="stylesheet" href="css/my.css" media="screen" charset="utf-8">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
   </head>
@@ -18,15 +17,37 @@
     </div>
 
     <script type="text/babel">
+      
+      // Featured Post Component
+      var FeaturedPost = React.createClass({
+        render: function() {
+          var post = {
+            quote: 'Developing human potential through music <span class="underline">and arts.</span>',
+            post_title: 'Royal Conservatory TELUS Centre for Performance and Learning',
+            category: 'Cultural',
+            img: 'http://lorempixel.com/g/575/325'
+          }
+          return (
+            <div className='featuredPost-post grid'>
+              <div className="grid-1of2">
+                <h1 className="featuredPost-quote" dangerouslySetInnerHTML={{__html: post.quote}}></h1>
+              </div>
+              <div className="grid-1of2 featuredPost-imgWrap">
+                <img src={post.img} className="featuredPost-img"></img>
+                <div className="featuredPost-title">{post.post_title}</div>
+                <div className="featuredPost-category">{post.category}</div>
+              </div>
+            </div>
+          )
+        }
+      })
 
       // Rating Component with styles
       var Rating = React.createClass({
-        
         render: function() {
           var stars = [];
           var star = 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/256/star-full-icon.png'
           var count = this.props.number
-
           var styles = {
             count: {
               textAlign: 'center',
@@ -58,7 +79,6 @@
             </div>
           );
         }
-        
       });
 
       // Colour Swatch
@@ -68,14 +88,14 @@
         },
         render: function() {
           var colour = this.props.colour
-          var style = {}
+
           return (
             <sg-swatch style={{borderColor: colour}} onClick={this.logEvent}>
               {colour.toLowerCase()}
             </sg-swatch>
           )
         }
-      })
+      });
 
       // Colour Swatches -> Nesting Components
       var Swatches = React.createClass({
@@ -92,8 +112,7 @@
             </div>
           )
         }
-      }) 
-
+      }); 
 
       // Our First Stylguide Component
       var StyleguideNav = React.createClass({  
@@ -119,15 +138,14 @@
       });
 
 
-
       // React was built at Facebook
       // Yet another JS architecture solution, but a good one.
       // The basic benefits: declarative views. Easy to piece together whats happening, and will happen.
       // 'Describe what your template looks like at any point in time'
-      // Reusable, self-contained, dumb components. all-in-one: style, markup & behaviour
+      // Reusable, self-contained, dumb components. All-in-one: style, markup & behaviour
       // When something changes (user input, new data, etc), the two versions of the view (past and present) are compared,
       // Differences are teased out and 'batched' together, and the DOM gets updated.
-      // Changes come from the top down -> looking for changes on the state.
+      // Changes come from the top down -> looking for changes on the state, passed down with props.
       // The state is all the information about what your application looks like RIGHT NOW. 
       
       // First Things First
@@ -181,6 +199,11 @@
                 <a href="#components" className="sg-h1" id="components">Components</a>
                 <button onClick={ this.increment } className="btn">Add Stars</button>
                 <Rating number={this.state.count} />
+              </sg-section>
+
+              <sg-section>
+                <a href="#" className="sg-h1" id="featuredPost">Featured Post</a>
+                <FeaturedPost />
               </sg-section>
 
             </div>

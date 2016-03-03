@@ -18,3 +18,44 @@
 .btn:focus{
   outline: none;
 }
+
+
+/* Featured Post Component */
+
+.featuredPost-post{
+  max-width: 900px;
+}
+
+.featuredPost-category{
+  font-weight: regular;
+  color: rgba(0, 0, 0, .8);
+}
+
+.featuredPost-imgWrap{
+  padding: .5em;
+}
+
+.featuredPost-title{
+  line-height: 1;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: .5em;
+}
+
+.featuredPost-img{
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1em;
+}
+
+.featuredPost-quote{
+  font-size: 50px;
+  color: #2c2c2c;
+  line-height: 1;
+  margin: .5em 0;
+}
+
+.featuredPost-quote .underline{
+  border-bottom: 8px solid black;
+}
