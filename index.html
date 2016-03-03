@@ -6,6 +6,7 @@
     <title>A Styleguide Fiddle Built With React</title>
     <link rel="stylesheet" href="css/boilerplate.css" media="screen" charset="utf-8">
     <link rel="stylesheet" href="css/my.css" media="screen" charset="utf-8">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
@@ -16,8 +17,49 @@
       <!-- All the things get rendered here -->
     </div>
 
-
     <script type="text/babel">
+
+      // Rating Component with styles
+      var Rating = React.createClass({
+        
+        render: function() {
+          var stars = [];
+          var star = 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/256/star-full-icon.png'
+          var count = this.props.number
+
+          var styles = {
+            count: {
+              textAlign: 'center',
+              color: '#70c1b3',
+              borderRadius: '999px',
+              padding: '10px'
+            },
+            star: {
+              display: 'inline-block',
+              width: '35px',
+              height: 'auto'
+            },
+            container: {
+              maxWidth: '600px',
+              border: '2px solid #ccc',
+              margin: '10px 0',
+              padding: '20px'
+            }
+          }
+
+          for(var i=0; i<= count - 1; i++) {
+            stars.push(<img key={i} src={star} width="100" style={styles.star}/>);
+          }
+          
+          return (
+            <div style={styles.container}> 
+              <h1 style={styles.count}>{count}</h1> 
+              { stars }
+            </div>
+          );
+        }
+        
+      });
 
       // Colour Swatch
       var Swatch = React.createClass({
@@ -39,17 +81,15 @@
       var Swatches = React.createClass({
         render: function() {
           var colours = this.props.colours
+          
           return (
-            <sg-section>
-              <a href="#colours" className="sg-h1" id="colours">Colours</a>
+            <div className="swatches">
               {
                 colours.map(function(colour, i) {
-                  return (
-                    <Swatch colour={colour} key={i} />
-                  )
+                  return <Swatch colour={colour} key={i} />
                 })
               }
-            </sg-section>
+            </div>
           )
         }
       }) 
@@ -58,22 +98,18 @@
       // Our First Stylguide Component
       var StyleguideNav = React.createClass({  
         render: function() {
-          
+          var img = 'http://www.revealnews.org/wp-content/uploads/2015/03/TWG-Logo-Revised-Large-11.png'
           var links = this.props.links
 
           return (
             <sg-nav>
               <sg-logo>
-                <img src="http://www.revealnews.org/wp-content/uploads/2015/03/TWG-Logo-Revised-Large-11.png" alt="logo"></img>
+                <img src={img} alt="logo"></img>
               </sg-logo>
               <div>
                 {
                   links.map(function(link, i) {
-                    return (
-                      <div key={i}>
-                        <a href={link.anchor}>{link.title}</a>
-                      </div>
-                    )
+                    return <a key={i} href={link.anchor}> {link.title} </a>
                   })
                 }
               </div>
@@ -81,6 +117,8 @@
           );
         }
       });
+
+
 
       // React was built at Facebook
       // Yet another JS architecture solution, but a good one.
@@ -94,6 +132,16 @@
       
       // First Things First
       var App = React.createClass({
+        getInitialState: function() {
+          return { 
+            count: 1
+          };
+        },
+        increment: function() {
+          this.setState({
+            count: this.state.count + 1
+          });
+        },
         render: function() {
           var linksArray = [
             {
@@ -123,7 +171,18 @@
 
               {/* Instatiate your react classes like so: */}
               <StyleguideNav links={linksArray} />
-              <Swatches colours={coloursArray} />
+
+              <sg-section>
+                <a href="#colours" className="sg-h1" id="colours">Colours</a>
+                <Swatches colours={coloursArray} />
+              </sg-section>
+
+              <sg-section>
+                <a href="#components" className="sg-h1" id="components">Components</a>
+                <button onClick={ this.increment } className="btn">Add Stars</button>
+                <Rating number={this.state.count} />
+              </sg-section>
+
             </div>
           ); 
         }
