@@ -1,1 +1,1 @@
-# Building A styleguide with React components Lunch and Learn
+# Building a Styleguide with React Components
